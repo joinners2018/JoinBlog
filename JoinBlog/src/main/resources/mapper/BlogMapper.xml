@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.join.joinblog.mapper.BlogMapper">
+    <resultMap id="BlogResultMap" type="com.join.joinblog.entity.Blog">
+        <id column="id" property="id"/>
+        <result column="pv" property="pv"/>
+        <result column="releaseTime" property="releaseTime"/>
+        <result column="commentsId" property="commentsId"/>
+        <result column="bloggerId" property="bloggerId"/>
+        <result column="tags" property="tags"/>
+        <result column="title" property="title"/>
+    </resultMap>
+
+    <insert id="addBlog">
+        insert into t_blog(pv,releaseTime,bloggerId,title)
+        values (#{pv},#{releaseTime},#{bloggerId},#{title});
+    </insert>
+
+    <select id="fuzzyQueryByTitle" resultType="com.join.joinblog.entity.Blog">
+        select * from t_blog where title like "%"#{title}"%";
+    </select>
+
+    <select id="queryById" resultType="com.join.joinblog.entity.Blog">
+        select * from t_blog where id=#{id};
+    </select>
+
+    <select id="queryAll" resultType="com.join.joinblog.entity.Blog">
+        select * from t_blog;
+    </select>
+
+    <select id="queryByBloggerId" resultType="com.join.joinblog.entity.Blog" parameterType="int">
+        select * from t_blog where bloggerId=#{bloggerId};
+    </select>
+
+    <update id="updatePvById" parameterType="int">
+        update t_blog set pv=#{pv} where id=#{id};
+    </update>
+
+    <update id="updateCommentsIdById" parameterType="com.join.joinblog.entity.Blog">
+        update t_blog set commentsId=#{commentsId} where id=#{id};
+    </update>
+
+    <update id="updateTagsById" parameterType="com.join.joinblog.entity.Blog">
+        update t_blog set tags=#{tags} where id=#{id};
+    </update>
+
+    <update id="updateTitleById" parameterType="com.join.joinblog.entity.Blog">
+        update t_blog set title=#{title} where id=#{id};
+    </update>
+
+    <delete id="deleteById" parameterType="int">
+        delete from t_blog where id=#{id};
+    </delete>
+</mapper>
