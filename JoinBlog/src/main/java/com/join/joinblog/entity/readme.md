@@ -4,9 +4,15 @@
 + 普通用户
 
 属性：
+int id;
+String username;
+String password;
+String sex;
 
 方法：
-
+setter;
+getter;
+toString;
 ----
 
 + 管理员
